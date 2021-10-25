@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Categories from '../Categories';
 
-class home extends React.Component {
+class Home extends React.Component {
   render() {
     return (
       <section className="main-screen-section">
@@ -22,9 +23,10 @@ class home extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </header>
+        <Categories />
       </section>
     );
   }
 }
 
-export default home;
+export default Home;
