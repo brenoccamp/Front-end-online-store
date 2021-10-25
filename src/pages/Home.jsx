@@ -4,6 +4,8 @@ import Categories from '../components/Categories';
 import Content from '../components/Content';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
+// MERGE TO MASTER
+
 class Home extends React.Component {
   constructor() {
     super();
