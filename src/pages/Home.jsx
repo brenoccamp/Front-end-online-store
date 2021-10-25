@@ -1,6 +1,6 @@
 import React from 'react';
 
-class MainScreen extends React.Component {
+class home extends React.Component {
   render() {
     return (
       <section className="main-screen-section">
@@ -19,4 +19,4 @@ class MainScreen extends React.Component {
   }
 }
 
-export default MainScreen;
+export default home;
