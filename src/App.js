@@ -6,6 +6,12 @@ import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
 
 class App extends React.Component {
+  componentDidMount() {
+    if (localStorage !== '') {
+      localStorage.setItem('Cart', '[]');
+    }
+  }
+
   render() {
     return (
       <div className="App">
