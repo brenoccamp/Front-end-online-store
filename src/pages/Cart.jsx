@@ -15,7 +15,6 @@ class Cart extends React.Component {
 
   loadCart() {
     const LOAD_CART = JSON.parse(localStorage.getItem('Cart'));
-    console.log(LOAD_CART);
     this.setState({ cart: LOAD_CART });
   }
 

@@ -5,14 +5,14 @@ import Content from '../components/Content';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.requestApi = this.requestApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       searchValue: '',
       result: [],
-      id: false,
+      id: '',
       search: false,
     };
   }
@@ -22,14 +22,31 @@ class Home extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async requestApi() {
-    const { searchValue, id } = this.state;
-    const RESULT = await getProductsFromCategoryAndQuery(id, searchValue);
-    this.setState({ result: RESULT, search: true });
+  requestApi2 = (radioid) => {
+    this.setState({
+      id: radioid,
+      searchValue: '',
+    }, () => {
+      const { searchValue, id } = this.state;
+      getProductsFromCategoryAndQuery(id, searchValue).then((result) => {
+        this.setState({ result, search: true });
+      });
+    });
+  }
+
+  requestApi = async () => {
+    this.setState({
+      id: '',
+    }, () => {
+      const { searchValue, id } = this.state;
+      getProductsFromCategoryAndQuery(id, searchValue).then((result) => {
+        this.setState({ result, search: true, searchValue: '' });
+      });
+    });
   }
 
   render() {
-    const { result, search } = this.state;
+    const { result, search, id, searchValue } = this.state;
     return (
       <section className="main-screen-section">
         <header className="main-screen-header">
@@ -39,6 +56,7 @@ class Home extends React.Component {
               data-testid="query-input"
               name="searchValue"
               onChange={ this.handleChange }
+              value={ searchValue }
             />
             <button
               type="button"
@@ -61,7 +79,7 @@ class Home extends React.Component {
         </header>
         <div className="columns">
           <div className="column">
-            <Categories />
+            <Categories value={ id } handleChange={ this.requestApi2 } />
           </div>
           <div className="column">
             {(search) ? (
