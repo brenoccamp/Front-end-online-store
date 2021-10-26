@@ -4,7 +4,6 @@ import React from 'react';
 
 class ProductCard extends React.Component {
   handleChange = ({ target }) => {
-    console.log(target);
   }
 
   render() {
