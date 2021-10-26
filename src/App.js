@@ -5,6 +5,12 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 
 class App extends React.Component {
+  componentDidMount() {
+    if (localStorage !== '') {
+      localStorage.setItem('Cart', '[]');
+    }
+  }
+
   render() {
     return (
       <div className="App">
