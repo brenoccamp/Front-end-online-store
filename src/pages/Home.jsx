@@ -5,8 +5,8 @@ import Content from '../components/Content';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.requestApi = this.requestApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -21,26 +21,28 @@ class Home extends React.Component {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
+
   requestApi2 = (radioid) => {
     this.setState({
       id: radioid,
       searchValue: '',
     }, () => {
       const { searchValue, id } = this.state;
-      getProductsFromCategoryAndQuery(id, searchValue).then((result) =>
-      this.setState({ result: result, search: true,})
-    )})
+      getProductsFromCategoryAndQuery(id, searchValue).then((result) => {
+        this.setState({ result, search: true });
+      });
+    });
   }
 
-  requestApi = async () => {    
+  requestApi = async () => {
     this.setState({
       id: '',
     }, () => {
       const { searchValue, id } = this.state;
-      getProductsFromCategoryAndQuery(id, searchValue).then((result) =>
-      this.setState({ result: result, search: true,})
-    )})
-       
+      getProductsFromCategoryAndQuery(id, searchValue).then((result) => {
+        this.setState({ result, search: true, searchValue: '' });
+      });
+    });
   }
 
   render() {
@@ -54,7 +56,7 @@ class Home extends React.Component {
               data-testid="query-input"
               name="searchValue"
               onChange={ this.handleChange }
-              value = { searchValue }
+              value={ searchValue }
             />
             <button
               type="button"
