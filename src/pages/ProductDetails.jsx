@@ -7,7 +7,7 @@ class ProductDetails extends React.Component {
     this.getProductClicked = this.getProductClicked.bind(this);
     this.state = {
       readyToRender: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -17,7 +17,7 @@ class ProductDetails extends React.Component {
   async getProductClicked() {
     const timeout = 300;
     setTimeout(() => {
-      this.setState({ readyToRender: true })
+      this.setState({ readyToRender: true });
     }, timeout);
   }
 
@@ -29,28 +29,32 @@ class ProductDetails extends React.Component {
         <h1>Product Details Page</h1>
         {!readyToRender ? <p>Carregando...</p> : (
           <div>
-          <h1 data-testid="product-detail-name">{element.title}</h1>
-          <img src={ element.thumbnail } alt="title" />
-          <p>{element.price}</p>
-          {element.attributes.map(({ name, value_name: valueName }, index) => (
-            <p key={ index }>{`${name}: ${valueName}`}</p>
-          ))}
-          <p>{element.warranty}</p>
-        </div>
+            <h1 data-testid="product-detail-name">{element.title}</h1>
+            <img src={ element.thumbnail } alt="title" />
+            <p>{element.price}</p>
+            {element.attributes.map(({ name, value_name: valueName }, index) => (
+              <p key={ index }>{`${name}: ${valueName}`}</p>
+            ))}
+            <p>{element.warranty}</p>
+          </div>
         )}
       </div>
     );
   }
 }
 
-ProductDetails.propTypes ={
-  element: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    attributes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    warranty: PropTypes.string.isRequired
-  })
-}
+ProductDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      element: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        thumbnail: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        attributes: PropTypes.arrayOf(PropTypes.string).isRequired,
+        warranty: PropTypes.string.isRequired,
+      }).isRequired,
+    }),
+  }).isRequired,
+};
 
 export default ProductDetails;
