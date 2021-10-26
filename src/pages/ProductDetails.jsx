@@ -15,7 +15,7 @@ class ProductDetails extends React.Component {
   }
 
   async getProductClicked() {
-    const timeout = 300;
+    const timeout = 500;
     setTimeout(() => {
       this.setState({ readyToRender: true })
     }, timeout);
