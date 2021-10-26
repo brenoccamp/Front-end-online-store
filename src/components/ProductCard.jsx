@@ -9,10 +9,9 @@ class ProductCard extends React.Component {
 
   render() {
     const { element } = this.props;
-    // console.log(element);
     return (
       <Link
-        to={ `/product-details/${element.id}` }
+        to={{ pathname: `/product-details/${element.id}`, state: { element } }}
         data-testid="product-detail-link"
       >
         <div className="card" data-testid="product">
@@ -27,7 +26,7 @@ class ProductCard extends React.Component {
 
 ProductCard.propTypes = {
   element: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     title: PropTypes.string,
