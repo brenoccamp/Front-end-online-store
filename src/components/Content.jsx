@@ -18,3 +18,4 @@ export default class Content extends Component {
 Content.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
