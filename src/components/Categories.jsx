@@ -6,12 +6,17 @@ class Categories extends React.Component {
     super();
     this.state = {
       categories: [],
-
-    };
+     };
   }
 
   componentDidMount() {
     this.fetchCategories();
+  }
+
+  handleChange2 = ({ target }) => {
+   const { handleChange } = this.props;
+   handleChange(target.id);
+   
   }
 
   fetchCategories = async () => {
@@ -32,9 +37,15 @@ class Categories extends React.Component {
             <li
               className=" is-flex is-align-content-left"
               key={ cat.id }
-              data-testid="category"
+              
             >
-              <input type="radio" name="rsvp" />
+              <input
+                type="radio"
+                name="valeuId"
+                onChange={ this.handleChange2 }
+                id={ cat.id }
+                data-testid="category"
+              />
               &nbsp;
               {cat.name}
             </li>
