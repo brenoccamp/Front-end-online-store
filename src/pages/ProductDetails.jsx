@@ -35,6 +35,13 @@ class ProductDetails extends React.Component {
     return (
       <div>
         <h1>Product Details Page</h1>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <button
+              type="button"
+            >
+              Carrinho
+            </button>
+          </Link>
         {!readyToRender ? <p>Carregando...</p> : (
           <div>
             <h1 data-testid="product-detail-name">{element.title}</h1>
@@ -51,13 +58,40 @@ class ProductDetails extends React.Component {
             >
               Adicionar ao carrinho
             </button>
-            <Link to="/cart" data-testid="shopping-cart-button">
-            <button
-              type="button"
-            >
-              Carrinho
-            </button>
-          </Link>
+          <h2>Avaliações</h2>
+          <form className="form-product-details">
+            <div className="input-email-evaluation">
+              <input
+                type="email"
+                placeholder="Digite seu email"
+                required
+              />
+              <input
+                type="number"
+                min="0"
+                max="5"
+                placeholder="Nota"
+                required
+              />
+            </div>
+            <div className="textarea-description-evaluation">
+              <textarea 
+                maxLength="500"
+                placeholder="Mensagem (opcional)"
+                rows="6"
+                cols="30"
+                data-testid="product-detail-evaluation"
+              />
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={ this.funcToAddEvaluation }
+              >
+                Avaliar
+              </button>
+            </div>
+          </form>
           </div>
         )}
       </div>
