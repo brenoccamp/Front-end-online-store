@@ -15,7 +15,15 @@ class ProductDetails extends React.Component {
   addCart() {
     const { location: { state: { element } } } = this.props;
     const CART = JSON.parse(localStorage.getItem('Cart'));
-    localStorage.setItem('Cart', JSON.stringify([...CART, element]));
+    const FILTER = CART.some((element2) => element2[0].id === element.id);
+    const QUANTIDADE = 1;
+    if (FILTER) {
+      alert('Este item ja se encontra no carrinho');
+    } else {
+      const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
+      const array = [element, valueProduct];
+      localStorage.setItem('Cart', JSON.stringify([...CART, array]));
+    }
   }
 
   componentDidMount() {
@@ -23,7 +31,7 @@ class ProductDetails extends React.Component {
   }
 
   async getProductClicked() {
-    const timeout = 300;
+    const timeout = 500;
     setTimeout(() => {
       this.setState({ readyToRender: true });
     }, timeout);
