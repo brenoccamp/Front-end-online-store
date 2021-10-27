@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.getProductClicked = this.getProductClicked.bind(this);
+    this.addCart = this.addCart.bind(this);
     this.state = {
       readyToRender: false,
     };
+  }
+
+  addCart() {
+    const { location: { state: { element } } } = this.props;
+    const CART = JSON.parse(localStorage.getItem('Cart'));
+    localStorage.setItem('Cart', JSON.stringify([...CART, element]));
   }
 
   componentDidMount() {
@@ -36,6 +44,20 @@ class ProductDetails extends React.Component {
               <p key={ index }>{`${name}: ${valueName}`}</p>
             ))}
             <p>{element.warranty}</p>
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ this.addCart }
+            >
+              Adicionar ao carrinho
+            </button>
+            <Link to="/cart" data-testid="shopping-cart-button">
+            <button
+              type="button"
+            >
+              Carrinho
+            </button>
+          </Link>
           </div>
         )}
       </div>
@@ -50,8 +72,7 @@ ProductDetails.propTypes = {
         title: PropTypes.string.isRequired,
         thumbnail: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
-        attributes: PropTypes.arrayOf(PropTypes.string).isRequired,
-        warranty: PropTypes.string.isRequired,
+        attributes: PropTypes.arrayOf(PropTypes.object).isRequired,
       }).isRequired,
     }),
   }).isRequired,
