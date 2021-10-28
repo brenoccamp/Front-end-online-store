@@ -40,6 +40,8 @@ class Home extends React.Component {
         this.setState({ result, search: true });
       });
     });
+    console.log('api');
+    console.log(this.state);
   }
 
   requestApi = async () => {
