@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
 import Content from '../components/Content';
@@ -16,15 +15,10 @@ class Home extends React.Component {
       result: [],
       id: '',
       search: false,
-      length: localStorage.Cart ? JSON.parse(localStorage.getItem('Cart')).length : 0
+      length: localStorage.Cart ? JSON.parse(localStorage.getItem('Cart')).length : 0,
     };
   }
 
-  updateLocal() {
-    const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length
-    this.setState({length: GET_LOCAL})
-  }
-  
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
@@ -51,6 +45,11 @@ class Home extends React.Component {
         this.setState({ result, search: true, searchValue: '' });
       });
     });
+  }
+
+  updateLocal() {
+    const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length;
+    this.setState({ length: GET_LOCAL });
   }
 
   render() {
