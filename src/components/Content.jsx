@@ -4,11 +4,11 @@ import ProductCard from './ProductCard';
 
 export default class Content extends Component {
   render() {
-    const { result, teste } = this.props;
+    const { result, updateLocal } = this.props;
     return (
       <div>
         {result.map((element) => (
-          <ProductCard key={ element.id } element={ element } teste={ teste } />
+          <ProductCard key={ element.id } element={ element } updateLocal={ updateLocal } />
         ))}
       </div>
     );

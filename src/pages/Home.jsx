@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
 import Content from '../components/Content';
 import { getProductsFromCategoryAndQuery } from '../services/api';
@@ -9,19 +10,17 @@ class Home extends React.Component {
     super(props);
     this.requestApi = this.requestApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.teste = this.teste.bind(this);
+    this.updateLocal = this.updateLocal.bind(this);
     this.state = {
       searchValue: '',
       result: [],
       id: '',
       search: false,
-      length: 0,
+      length: localStorage.Cart ? JSON.parse(localStorage.getItem('Cart')).length : 0
     };
   }
 
-
-  teste() {
-    console.log('chegou aqui')
+  updateLocal() {
     const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length
     this.setState({length: GET_LOCAL})
   }
@@ -75,13 +74,7 @@ class Home extends React.Component {
               Pesquisar
             </button>
           </div>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <button
-              type="button"
-            >
-              <p data-testid="shopping-cart-size">{`Carrinho(${ length })`}</p> 
-            </button>
-          </Link>
+          <CartButton length={ length } />
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
@@ -92,7 +85,7 @@ class Home extends React.Component {
           </div>
           <div className="column">
             {(search) ? (
-              <Content result={ result.results } teste={ this.teste } />
+              <Content result={ result.results } updateLocal={ this.updateLocal } />
             )
               : <h4>Você ainda não realizou uma busca</h4>}
           </div>
