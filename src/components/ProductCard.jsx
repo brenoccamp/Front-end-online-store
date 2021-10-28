@@ -7,7 +7,7 @@ class ProductCard extends React.Component {
     this.addCart = this.addCart.bind(this);
   }
   addCart() {
-    const { teste } = this.props;
+    const { updateLocal } = this.props;
     const { element } = this.props;
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const FILTER = CART.some((element2) => element2[0].id === element.id);
@@ -18,7 +18,7 @@ class ProductCard extends React.Component {
       const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
       const array = [element, valueProduct];
       localStorage.setItem('Cart', JSON.stringify([...CART, array]));
-      teste();
+      updateLocal();
     // }
   }
   render() {

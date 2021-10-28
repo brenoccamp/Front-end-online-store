@@ -10,7 +10,7 @@ class Home extends React.Component {
     super(props);
     this.requestApi = this.requestApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.teste = this.teste.bind(this);
+    this.updateLocal = this.updateLocal.bind(this);
     this.state = {
       searchValue: '',
       result: [],
@@ -20,7 +20,7 @@ class Home extends React.Component {
     };
   }
 
-  teste() {
+  updateLocal() {
     const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length
     this.setState({length: GET_LOCAL})
   }
@@ -85,7 +85,7 @@ class Home extends React.Component {
           </div>
           <div className="column">
             {(search) ? (
-              <Content result={ result.results } teste={ this.teste } />
+              <Content result={ result.results } updateLocal={ this.updateLocal } />
             )
               : <h4>Você ainda não realizou uma busca</h4>}
           </div>
