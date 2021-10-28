@@ -16,7 +16,7 @@ class Home extends React.Component {
       result: [],
       id: '',
       search: false,
-      length: 0,
+      length: localStorage.Cart ? JSON.parse(localStorage.getItem('Cart')).length : 0
     };
   }
 
