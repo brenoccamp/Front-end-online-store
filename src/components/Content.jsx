@@ -8,7 +8,11 @@ export default class Content extends Component {
     return (
       <div>
         {result.map((element) => (
-          <ProductCard key={ element.id } element={ element } updateLocal={ updateLocal } />
+          <ProductCard
+            key={ element.id }
+            element={ element }
+            updateLocal={ updateLocal }
+          />
         ))}
       </div>
     );
@@ -17,4 +21,5 @@ export default class Content extends Component {
 
 Content.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateLocal: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

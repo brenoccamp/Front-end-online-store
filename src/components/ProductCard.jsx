@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React from 'react';
+
 class ProductCard extends React.Component {
   constructor() {
     super();
     this.addCart = this.addCart.bind(this);
   }
+
   addCart() {
     const { updateLocal } = this.props;
     const { element } = this.props;
@@ -15,12 +17,13 @@ class ProductCard extends React.Component {
     // if (FILTER) {
     //   alert('Este item ja se encontra no carrinho');
     // } else {
-      const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
-      const array = [element, valueProduct];
-      localStorage.setItem('Cart', JSON.stringify([...CART, array]));
-      updateLocal();
+    const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
+    const array = [element, valueProduct];
+    localStorage.setItem('Cart', JSON.stringify([...CART, array]));
+    updateLocal();
     // }
   }
+
   render() {
     const { element } = this.props;
     return (
@@ -29,7 +32,7 @@ class ProductCard extends React.Component {
           to={ { pathname: `/product-details/${element.id}`, state: { element } } }
           data-testid="product-detail-link"
         >
-          <div  data-testid="product">
+          <div data-testid="product">
             <h1 data-testid="shopping-cart-product-name">{ element.title }</h1>
             <img src={ element.thumbnail } alt={ element.title } />
             <h3>{`R$: ${element.price}`}</h3>
@@ -38,6 +41,8 @@ class ProductCard extends React.Component {
             >
               {`Quantidade disponivel: ${element.available_quantity}`}
             </p>
+            {(element.shipping.free_shipping)
+            && <p data-testid="free-shipping">Frete grátis</p>}
           </div>
         </Link>
         <button
@@ -59,7 +64,9 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     available_quantity: PropTypes.number,
+    shipping: PropTypes.shape({ free_shipping: PropTypes.bool }),
   }).isRequired,
+  updateLocal: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductCard;
