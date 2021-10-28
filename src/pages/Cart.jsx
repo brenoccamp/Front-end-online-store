@@ -17,7 +17,7 @@ class Cart extends React.Component {
 
   }
 
-  // A função reduce que atualiza um objeto sem mudar as suas posições foi retidado do site: https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
+  // A função 'reduce' que atualiza um objeto sem mudar as suas posições foi retidado do site: https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
   increaseValue({ target }) {
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const ID = target.id;
