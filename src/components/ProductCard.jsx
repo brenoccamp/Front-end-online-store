@@ -64,10 +64,9 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     available_quantity: PropTypes.number,
-    shipping: PropTypes.shape({
-      free_shipping: PropTypes.bool,
-    }),
+    shipping: PropTypes.shape({ free_shipping: PropTypes.bool }),
   }).isRequired,
+  updateLocal: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductCard;
