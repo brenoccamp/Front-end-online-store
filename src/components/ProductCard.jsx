@@ -10,7 +10,7 @@ class ProductCard extends React.Component {
     const { updateLocal } = this.props;
     const { element } = this.props;
     const CART = JSON.parse(localStorage.getItem('Cart'));
-    const FILTER = CART.some((element2) => element2[0].id === element.id);
+    // const FILTER = CART.some((element2) => element2[0].id === element.id);
     const QUANTIDADE = 1;
     // if (FILTER) {
     //   alert('Este item ja se encontra no carrinho');
@@ -24,12 +24,12 @@ class ProductCard extends React.Component {
   render() {
     const { element } = this.props;
     return (
-      <div>
+      <div className="card">
         <Link
           to={ { pathname: `/product-details/${element.id}`, state: { element } } }
           data-testid="product-detail-link"
         >
-          <div className="card" data-testid="product">
+          <div  data-testid="product">
             <h1 data-testid="shopping-cart-product-name">{ element.title }</h1>
             <img src={ element.thumbnail } alt={ element.title } />
             <h3>{`R$: ${element.price}`}</h3>

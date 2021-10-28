@@ -17,7 +17,7 @@ class Cart extends React.Component {
 
   }
 
-  //Material consultado para criar a lógica de increaseValue e decreaseValue: https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
+  // A função reduce que atualiza um objeto sem mudar as suas posições foi retidado do site: https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
   increaseValue({ target }) {
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const ID = target.id;
@@ -83,13 +83,14 @@ class Cart extends React.Component {
   render() {
     const { cart } = this.state;
     if (cart.length > 0) {
-      return cart.map((element) => (
-        <div key={ element[0].id }>
+      return <div>
+            {cart.map((element) => (
+        <div className="card" key={ element[0].id }>
           <Link
             to={ { pathname: `/product-details/${element[0].id}`, state: { element } } }
             data-testid="product-detail-link"
           >
-            <div className="card" data-testid="product">
+            <div data-testid="product">
               <h1 data-testid="shopping-cart-product-name">{ element[0].title }</h1>
               <img src={ element[0].thumbnail } alt={ element[0].title } />
               <h3>{`R$: ${element[0].price}`}</h3>
@@ -123,7 +124,18 @@ class Cart extends React.Component {
             Remover Produto
           </button>
         </div>
-      ));
+      ))}
+      <Link to="/checkout">
+          <button
+            type="button"
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </button>
+          </Link>
+      </div>
+      
+      
     }
     return (
       <div>
