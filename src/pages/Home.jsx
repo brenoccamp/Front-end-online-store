@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
 import Content from '../components/Content';
 import { getProductsFromCategoryAndQuery } from '../services/api';
@@ -19,9 +20,7 @@ class Home extends React.Component {
     };
   }
 
-
   teste() {
-    console.log('chegou aqui')
     const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length
     this.setState({length: GET_LOCAL})
   }
@@ -75,13 +74,7 @@ class Home extends React.Component {
               Pesquisar
             </button>
           </div>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <button
-              type="button"
-            >
-              <p data-testid="shopping-cart-size">{`Carrinho(${ length })`}</p> 
-            </button>
-          </Link>
+          <CartButton length={ length } />
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
