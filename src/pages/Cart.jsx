@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CartButton from '../components/CartButton';
 class Cart extends React.Component {
   constructor() {
     super();
@@ -13,32 +14,48 @@ class Cart extends React.Component {
   }
   componentDidMount() {
     this.loadCart();
+
   }
 
-  // https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
+  //Material consultado para criar a lógica de increaseValue e decreaseValue: https://pt.stackoverflow.com/questions/397104/atualizar-campo-de-uma-sele%C3%A7%C3%A3o-de-um-array-de-objetos-com-filter
   increaseValue({ target }) {
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const ID = target.id;
-    CART.reduce((acc, o) => acc.concat(ID.includes(o[0].id) ? Object.assign(o[1], { QUANTIDADE: o[1].QUANTIDADE + 1 }) : o), []);
-    localStorage.setItem('Cart', JSON.stringify(CART));
-    this.setState({ cart: CART });
-  }
-  loadCart() {
-    const LOAD_CART = JSON.parse(localStorage.getItem('Cart'));
-    this.setState({ cart: LOAD_CART });
-  }
-  decreaseValue({ target }) {
-    const CART = JSON.parse(localStorage.getItem('Cart'));
-    const ID = target.id;
-    const ITEM = CART.find((element) => element[0].id === target.id);
-    if (ITEM[1].QUANTIDADE === 1) {
-      this.removeProductFromDecrease(ID);
+    const getItemClicked = CART.filter((item) => item[0].id === ID);
+    const { price } = getItemClicked[0][0];
+    const quantityOfItem = getItemClicked[0][1].QUANTIDADE;
+    const maxInventory = getItemClicked[0][0].available_quantity;
+    if (quantityOfItem === maxInventory) {
+      this.setState({
+        isButtonDisabled: true,
+      })
     } else {
-      CART.reduce((acc, o) => acc.concat(ID.includes(o[0].id) ? Object.assign(o[1], { QUANTIDADE: o[1].QUANTIDADE - 1 }) : o), []);
+      CART.reduce((acc, o) => acc.concat(ID.includes(o[0].id) ? Object.assign(o[1], { QUANTIDADE: o[1].QUANTIDADE + 1, priceUnity: (o[1].QUANTIDADE + 1) * price }) : o), []);
       localStorage.setItem('Cart', JSON.stringify(CART));
       this.setState({ cart: CART });
     }
   }
+
+  loadCart() {
+    const LOAD_CART = JSON.parse(localStorage.getItem('Cart'));
+    this.setState({ cart: LOAD_CART });
+  }
+
+  decreaseValue({ target }) {
+    const CART = JSON.parse(localStorage.getItem('Cart'));
+    const ID = target.id;
+    const ITEM = CART.find((element) => element[0].id === target.id);
+    const { price } = ITEM[0];
+    const { priceUnity } = ITEM[1];
+    if (ITEM[1].QUANTIDADE === 1) {
+      this.removeProductFromDecrease(ID);
+    } else {
+      CART.reduce((acc, o) => acc.concat(ID.includes(o[0].id) ? Object.assign(o[1], { QUANTIDADE: o[1].QUANTIDADE - 1, priceUnity: priceUnity - price }) : o), []);
+      localStorage.setItem('Cart', JSON.stringify(CART));
+      this.setState({ cart: CART });
+    }
+  }
+
   removeProductFromDecrease(id) {
     const { cart } = this.state;
     const NEW_CART = cart.filter((element) => element[0].id !== id);
@@ -46,12 +63,23 @@ class Cart extends React.Component {
     this.setState({ cart: NEW_CART });
     this.loadCart();
   }
+
   removeProduct({ target }) {
     const { cart } = this.state;
     const NEW_CART = cart.filter((element) => element[0].id !== target.id);
     localStorage.setItem('Cart', JSON.stringify(NEW_CART));
     this.loadCart();
   }
+
+  disableButton = (element) => {
+    const { QUANTIDADE } = element[1];
+    const { available_quantity } = element[0];
+    if (QUANTIDADE === available_quantity) {
+      return true
+    }
+    return false
+  }
+
   render() {
     const { cart } = this.state;
     if (cart.length > 0) {
@@ -82,6 +110,7 @@ class Cart extends React.Component {
             type="button"
             data-testid="product-increase-quantity"
             onClick={ this.increaseValue }
+            disabled={ this.disableButton(element) }
           >
             +
           </button>

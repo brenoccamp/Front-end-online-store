@@ -51,7 +51,7 @@ class ProductDetails extends React.Component {
           <div>
             <h1 data-testid="product-detail-name">{element.title}</h1>
             <img src={ element.thumbnail } alt="title" />
-            <p>{element.price}</p>
+            <p>{`Valor: ${element.price} R$`}</p>
             {element.attributes.map(({ name, value_name: valueName }, index) => (
               <p key={ index }>{`${name}: ${valueName}`}</p>
             ))}
