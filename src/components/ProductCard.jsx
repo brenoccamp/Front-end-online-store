@@ -7,19 +7,19 @@ class ProductCard extends React.Component {
     this.addCart = this.addCart.bind(this);
   }
   addCart() {
-    const { teste } = this.props;
+    const { updateLocal } = this.props;
     const { element } = this.props;
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const FILTER = CART.some((element2) => element2[0].id === element.id);
     const QUANTIDADE = 1;
-    if (FILTER) {
-      alert('Este item ja se encontra no carrinho');
-    } else {
+    // if (FILTER) {
+    //   alert('Este item ja se encontra no carrinho');
+    // } else {
       const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
       const array = [element, valueProduct];
       localStorage.setItem('Cart', JSON.stringify([...CART, array]));
-      teste();
-    }
+      updateLocal();
+    // }
   }
   render() {
     const { element } = this.props;
@@ -44,7 +44,6 @@ class ProductCard extends React.Component {
           type="button"
           data-testid="product-add-to-cart"
           onClick={ this.addCart }
-          // onClick={ teste }
         >
           Adicionar ao carrinho
         </button>
