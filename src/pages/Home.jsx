@@ -9,14 +9,23 @@ class Home extends React.Component {
     super(props);
     this.requestApi = this.requestApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.teste = this.teste.bind(this);
     this.state = {
       searchValue: '',
       result: [],
       id: '',
       search: false,
+      length: 0,
     };
   }
 
+
+  teste() {
+    console.log('chegou aqui')
+    const GET_LOCAL = JSON.parse(localStorage.getItem('Cart')).length
+    this.setState({length: GET_LOCAL})
+  }
+  
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
@@ -46,7 +55,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { result, search, id, searchValue } = this.state;
+    const { result, search, id, searchValue, length } = this.state;
     return (
       <section className="main-screen-section">
         <header className="main-screen-header">
@@ -70,7 +79,7 @@ class Home extends React.Component {
             <button
               type="button"
             >
-              Carrinho
+              <p data-testid="shopping-cart-size">{`Carrinho(${ length })`}</p> 
             </button>
           </Link>
           <p data-testid="home-initial-message">
@@ -83,7 +92,7 @@ class Home extends React.Component {
           </div>
           <div className="column">
             {(search) ? (
-              <Content result={ result.results } />
+              <Content result={ result.results } teste={ this.teste } />
             )
               : <h4>Você ainda não realizou uma busca</h4>}
           </div>
