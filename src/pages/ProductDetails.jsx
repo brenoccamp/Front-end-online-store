@@ -194,7 +194,7 @@ ProductDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       element: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         thumbnail: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
