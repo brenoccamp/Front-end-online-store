@@ -16,14 +16,15 @@ class ProductCard extends React.Component {
     if (FILTER) {
       CART = CART.forEach((product) => {
         if (product[0].id === element.id) {
+          const { QUANTIDADE } = product[1];
           const { price } = product[0];
-          product[1].QUANTIDADE += 1;
+          product[1].QUANTIDADE = (QUANTIDADE + 1);
           const quantity = product[1].QUANTIDADE;
           product[1].priceUnity = price * quantity;
+          localStorage.setItem('Cart', JSON.stringify(CART));
+          updateLocal();
           alert(`Você adicionou outro "${product[0].title}" ao seu carrinho!`);
         }
-        localStorage.setItem('Cart', JSON.stringify(CART));
-        updateLocal();
       });
     } else {
       const valueProduct = { QUANTIDADE: 1, priceUnity: element.price };
