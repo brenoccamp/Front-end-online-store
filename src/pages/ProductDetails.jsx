@@ -41,13 +41,13 @@ class ProductDetails extends React.Component {
   addCart() {
     const { location: { state: { element } } } = this.props;
     let CART = JSON.parse(localStorage.getItem('Cart'));
-    const FILTER = CART.some((item) => item[0].id === element.id);
+    const FILTER = CART.some((item) => item[0].id === element[0].id );
     if (FILTER) {
       CART = CART.forEach((product) => {
-        if (product[0].id === element.id) {
+        if (product[0].id === element[0].id) {
           product[1].QUANTIDADE += 1;
           const { QUANTIDADE } = product[1];
-          const { price } = element;
+          const { price } = element[0];
           product[1].priceUnity = price * QUANTIDADE;
           localStorage.setItem('Cart', JSON.stringify(CART));
           this.setState({ length: this.quantityOfProductsAdded() });
