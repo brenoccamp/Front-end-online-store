@@ -21,5 +21,5 @@ export default class Content extends Component {
 
 Content.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateLocal: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateLocal: PropTypes.func.isRequired,
 };
