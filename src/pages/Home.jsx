@@ -50,7 +50,7 @@ class Home extends React.Component {
   updateLocal() {
     const GET_LOCAL = JSON.parse(localStorage.getItem('Cart'));
     let quantityOfProductsAdded = 0;
-    GET_LOCAL.map((product) => {
+    GET_LOCAL.forEach((product) => {
       quantityOfProductsAdded += Number(product[1].QUANTIDADE);
     });
     this.setState({ length: quantityOfProductsAdded });

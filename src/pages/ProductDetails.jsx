@@ -27,14 +27,14 @@ class ProductDetails extends React.Component {
   quantityOfProductsAdded = () => {
     const storage = JSON.parse(localStorage.getItem('Cart'));
     let productsLength = 0;
-    storage.map((item) => {
+    storage.forEach((item) => {
       productsLength += item[1].QUANTIDADE;
     });
     return productsLength;
   }
 
   updateStorage = (CART, array) => {
-    localStorage.setItem('Cart', JSON.stringify([...CART, array]))
+    localStorage.setItem('Cart', JSON.stringify([...CART, array]));
     this.setState({ length: this.quantityOfProductsAdded() });
   }
 
@@ -52,12 +52,12 @@ class ProductDetails extends React.Component {
           localStorage.setItem('Cart', JSON.stringify(CART));
           this.setState({ length: this.quantityOfProductsAdded() });
         }
-      })
+      });
     } else {
       const valueProduct = [element, { QUANTIDADE: 1, priceUnity: element.price }];
       CART.push(valueProduct);
       localStorage.setItem('Cart', JSON.stringify(CART));
-      this.setState({ length: this.quantityOfProductsAdded() })
+      this.setState({ length: this.quantityOfProductsAdded() });
     }
   }
 
