@@ -45,11 +45,11 @@ class Cart extends React.Component {
     const CART = JSON.parse(localStorage.getItem('Cart'));
     const ID = target.id;
     const ITEM = CART.find((element) => element[0].id === target.id);
-    const { price } = ITEM[0];
-    const { priceUnity } = ITEM[1];
     if (ITEM[1].QUANTIDADE === 1) {
       this.removeProductFromDecrease(ID);
     } else {
+      const { price } = ITEM[0];
+      const { priceUnity } = ITEM[1];
       CART.reduce((acc, o) => acc.concat(ID.includes(o[0].id)
         ? Object.assign(o[1], { QUANTIDADE: o[1].QUANTIDADE - 1,
           priceUnity: priceUnity - price })

@@ -11,17 +11,28 @@ class ProductCard extends React.Component {
   addCart() {
     const { updateLocal } = this.props;
     const { element } = this.props;
-    const CART = JSON.parse(localStorage.getItem('Cart'));
-    // const FILTER = CART.some((element2) => element2[0].id === element.id);
+    let CART = JSON.parse(localStorage.getItem('Cart'));
+    const FILTER = CART.some((element2) => element2[0].id === element.id);
     const QUANTIDADE = 1;
-    // if (FILTER) {
-    //   alert('Este item ja se encontra no carrinho');
-    // } else {
+    if (FILTER) {
+      CART = CART.map((product) => {
+        if (product[0].id === element.id) {
+          const { QUANTIDADE } = product[1];
+          const { price } = product[0];
+          product[1].QUANTIDADE = (QUANTIDADE + 1);
+          const quantity = product[1].QUANTIDADE;
+          product[1].priceUnity = price * quantity;
+          alert(`Você adicionou outro "${product[0].title}" ao seu carrinho!`);
+        }
+        localStorage.setItem('Cart', JSON.stringify(CART));
+        updateLocal();
+      });
+    } else {
     const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
     const array = [element, valueProduct];
     localStorage.setItem('Cart', JSON.stringify([...CART, array]));
     updateLocal();
-    // }
+    }
   }
 
   render() {
@@ -66,7 +77,7 @@ ProductCard.propTypes = {
     available_quantity: PropTypes.number,
     shipping: PropTypes.shape({ free_shipping: PropTypes.bool }),
   }).isRequired,
-  updateLocal: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateLocal: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
