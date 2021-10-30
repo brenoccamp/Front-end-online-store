@@ -17,18 +17,20 @@ class ProductDetails extends React.Component {
     this.getProductClicked();
   }
 
-  quantityOfProductsAdded = () => {
-    const storage = JSON.parse(localStorage.getItem('Cart'));
-    let productsLength = 0;
-    const quantityOfProductsAdded = storage.map((item) => productsLength += item[1].QUANTIDADE);
-    return productsLength
-  }
-
   async getProductClicked() {
     const timeout = 500;
     setTimeout(() => {
       this.setState({ readyToRender: true });
     }, timeout);
+  }
+
+  quantityOfProductsAdded = () => {
+    const storage = JSON.parse(localStorage.getItem('Cart'));
+    let productsLength = 0;
+    storage.map((item) => {
+      productsLength += item[1].QUANTIDADE;
+    });
+    return productsLength;
   }
 
   updateStorage = (CART, array) => {
@@ -48,7 +50,7 @@ class ProductDetails extends React.Component {
           const { price } = element;
           product[1].priceUnity = price * QUANTIDADE;
           localStorage.setItem('Cart', JSON.stringify(CART));
-          this.setState({ length: this.quantityOfProductsAdded() })
+          this.setState({ length: this.quantityOfProductsAdded() });
         }
       })
     } else {
@@ -192,6 +194,7 @@ ProductDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       element: PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         thumbnail: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
@@ -203,7 +206,7 @@ ProductDetails.propTypes = {
 };
 
 ProductDetails.propsDefault = {
-  warranty: 'Sem garantia'
+  warranty: 'Sem garantia',
 };
 
 export default ProductDetails;

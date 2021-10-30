@@ -13,9 +13,8 @@ class ProductCard extends React.Component {
     const { element } = this.props;
     let CART = JSON.parse(localStorage.getItem('Cart'));
     const FILTER = CART.some((element2) => element2[0].id === element.id);
-    const QUANTIDADE = 1;
     if (FILTER) {
-      CART = CART.map((product) => {
+      CART = CART.forEach((product) => {
         if (product[0].id === element.id) {
           const { QUANTIDADE } = product[1];
           const { price } = product[0];
@@ -28,10 +27,10 @@ class ProductCard extends React.Component {
         updateLocal();
       });
     } else {
-    const valueProduct = { QUANTIDADE, priceUnity: (QUANTIDADE * element.price) };
-    const array = [element, valueProduct];
-    localStorage.setItem('Cart', JSON.stringify([...CART, array]));
-    updateLocal();
+      const valueProduct = { QUANTIDADE: 1, priceUnity: element.price };
+      const array = [element, valueProduct];
+      localStorage.setItem('Cart', JSON.stringify([...CART, array]));
+      updateLocal();
     }
   }
 
