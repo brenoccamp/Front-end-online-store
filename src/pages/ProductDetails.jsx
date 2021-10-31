@@ -87,6 +87,44 @@ class ProductDetails extends React.Component {
     return (
       !readyToRender ? <p>Carregando...</p> : (
         <div>
+          <header className="hero is-primary main-screen-header">
+            <div
+              className="hero-body
+          container-input
+          is-flex-direction-row
+          is-justify-content-space-around
+          columns
+          is-align-items-start
+           "
+            >
+
+              <div className="column">
+                <img className="imageLogo" src="https://theme.zdassets.com/theme_assets/9633455/9814df697eaf49815d7df109110815ff887b3457.png" alt="" />
+                <p className="subtitle">
+                  <strong>Store</strong>
+                </p>
+              </div>
+
+              <div className="column pt-6">
+                <div className="field has-addons">
+                  <div className="control is-expanded">
+                    
+                  </div>
+                  <div className="control">
+                    
+                  </div>
+                </div>
+                <p data-testid="home-initial-message">
+                  Digite algum termo de pesquisa ou escolha uma categoria.
+                </p>
+              </div>
+
+              <div className="column pt-6">
+                <CartButton length={ length } />
+              </div>
+            </div>
+
+          </header>
           <h1 data-testid="product-detail-name">{element[0].title}</h1>
           <img src={ element[0].thumbnail } alt="title" />
           <p>{`Valor: ${element[0].price} R$`}</p>

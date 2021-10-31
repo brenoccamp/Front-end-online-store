@@ -69,6 +69,7 @@ class Home extends React.Component {
           is-flex-direction-row
           is-justify-content-space-around
           columns
+          is-align-items-start
            "
           >
 
@@ -79,7 +80,7 @@ class Home extends React.Component {
               </p>
             </div>
 
-            <div className="column">
+            <div className="column pt-6">
               <div className="field has-addons">
                 <div className="control is-expanded">
                   <input
@@ -107,22 +108,22 @@ class Home extends React.Component {
               </p>
             </div>
 
-            <div className="column">
+            <div className="column pt-6">
               <CartButton length={ length } />
             </div>
           </div>
 
         </header>
 
-        <div className="columns">
-          <div className="column">
+        <div className="columns ">
+          <div className="column is-2 colunm-categories">
             <Categories value={ id } handleChange={ this.requestApi2 } />
           </div>
-          <div className="column">
+          <div className="column colunm-content">
             {(search) ? (
               <Content result={ result.results } updateLocal={ this.updateLocal } />
             )
-              : <h4>Você ainda não realizou uma busca</h4>}
+              : <h4 className="title">Você ainda não realizou uma busca</h4>}
           </div>
 
         </div>

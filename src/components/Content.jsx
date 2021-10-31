@@ -6,7 +6,7 @@ export default class Content extends Component {
   render() {
     const { result, updateLocal } = this.props;
     return (
-      <div>
+      <>
         {result.map((element) => (
           <ProductCard
             key={ element.id }
@@ -14,7 +14,7 @@ export default class Content extends Component {
             updateLocal={ updateLocal }
           />
         ))}
-      </div>
+      </>
     );
   }
 }
