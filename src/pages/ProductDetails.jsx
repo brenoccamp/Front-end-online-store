@@ -41,23 +41,44 @@ class ProductDetails extends React.Component {
   addCart() {
     const { location: { state: { element } } } = this.props;
     let CART = JSON.parse(localStorage.getItem('Cart'));
-    const FILTER = CART.some((item) => item[0].id === element[0].id );
-    if (FILTER) {
-      CART = CART.forEach((product) => {
-        if (product[0].id === element[0].id) {
-          product[1].QUANTIDADE += 1;
-          const { QUANTIDADE } = product[1];
-          const { price } = element[0];
-          product[1].priceUnity = price * QUANTIDADE;
-          localStorage.setItem('Cart', JSON.stringify(CART));
-          this.setState({ length: this.quantityOfProductsAdded() });
-        }
-      });
+    if (Array.isArray(element)) {
+      const FILTER = CART.some((item) => item[0].id === element[0].id);
+      if (FILTER) {
+        CART = CART.forEach((product) => {
+          if (product[0].id === element[0].id) {
+            product[1].QUANTIDADE += 1;
+            const { QUANTIDADE } = product[1];
+            const { price } = element[0];
+            product[1].priceUnity = price * QUANTIDADE;
+            localStorage.setItem('Cart', JSON.stringify(CART));
+            this.setState({ length: this.quantityOfProductsAdded() });
+          }
+        });
+      } else {
+        const valueProduct = [element, { QUANTIDADE: 1, priceUnity: element.price }];
+        CART.push(valueProduct);
+        localStorage.setItem('Cart', JSON.stringify(CART));
+        this.setState({ length: this.quantityOfProductsAdded() });
+      }
     } else {
-      const valueProduct = [element, { QUANTIDADE: 1, priceUnity: element.price }];
-      CART.push(valueProduct);
-      localStorage.setItem('Cart', JSON.stringify(CART));
-      this.setState({ length: this.quantityOfProductsAdded() });
+      const FILTER = CART.some((item) => item[0].id === element.id);
+      if (FILTER) {
+        CART = CART.forEach((product) => {
+          if (product[0].id === element.id) {
+            product[1].QUANTIDADE += 1;
+            const { QUANTIDADE } = product[1];
+            const { price } = element;
+            product[1].priceUnity = price * QUANTIDADE;
+            localStorage.setItem('Cart', JSON.stringify(CART));
+            this.setState({ length: this.quantityOfProductsAdded() });
+          }
+        });
+      } else {
+        const valueProduct = [element, { QUANTIDADE: 1, priceUnity: element.price }];
+        CART.push(valueProduct);
+        localStorage.setItem('Cart', JSON.stringify(CART));
+        this.setState({ length: this.quantityOfProductsAdded() });
+      }
     }
   }
 
