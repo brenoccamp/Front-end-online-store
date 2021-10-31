@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
@@ -62,28 +63,59 @@ class Home extends React.Component {
     const { result, search, id, searchValue, length } = this.state;
     return (
       <section className="main-screen-section">
-        <header className="main-screen-header">
-          <div className="container-input">
-            <input
-              type="text"
-              data-testid="query-input"
-              name="searchValue"
-              onChange={ this.handleChange }
-              value={ searchValue }
-            />
-            <button
-              type="button"
-              data-testid="query-button"
-              onClick={ this.requestApi }
-            >
-              Pesquisar
-            </button>
+
+        <header className="hero is-primary main-screen-header">
+          <div
+            className="hero-body
+          container-input
+          is-flex-direction-row
+          is-justify-content-space-around
+          columns
+           "
+          >
+
+            <div className="column">
+              <img className="imageLogo" src="https://theme.zdassets.com/theme_assets/9633455/9814df697eaf49815d7df109110815ff887b3457.png" alt="" />
+              <p className="subtitle">
+                <strong>Store</strong>
+              </p>
+            </div>
+
+            <div className="column">
+              <div className="field has-addons">
+                <div className="control is-expanded">
+                  <input
+                    type="text"
+                    data-testid="query-input"
+                    name="searchValue"
+                    onChange={ this.handleChange }
+                    value={ searchValue }
+                    className="input is-success is-fullwidth"
+                  />
+                </div>
+                <div className="control">
+                  <button
+                    type="button"
+                    data-testid="query-button"
+                    onClick={ this.requestApi }
+                    className="button is-link is-light"
+                  >
+                    Pesquisar
+                  </button>
+                </div>
+              </div>
+              <p data-testid="home-initial-message">
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </p>
+            </div>
+
+            <div className="column">
+              <CartButton length={ length } />
+            </div>
           </div>
-          <CartButton length={ length } />
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
+
         </header>
+
         <div className="columns">
           <div className="column">
             <Categories value={ id } handleChange={ this.requestApi2 } />
@@ -94,6 +126,7 @@ class Home extends React.Component {
             )
               : <h4>Você ainda não realizou uma busca</h4>}
           </div>
+
         </div>
 
       </section>
