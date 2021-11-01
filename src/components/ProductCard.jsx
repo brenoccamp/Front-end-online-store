@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import CartButton from '../components/CartButton';
+
 
 class ProductCard extends React.Component {
   constructor() {
