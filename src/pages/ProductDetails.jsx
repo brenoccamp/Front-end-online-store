@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CartButton from '../components/CartButton';
+import Reating from '../components/Reating';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -87,36 +88,46 @@ class ProductDetails extends React.Component {
     return (
       !readyToRender ? <p>Carregando...</p> : (
         <div>
-          <h1 data-testid="product-detail-name">{element[0].title}</h1>
-          <img src={ element[0].thumbnail } alt="title" />
-          <p>{`Valor: ${element[0].price} R$`}</p>
-          {element[0].attributes.map(({ name, value_name: valueName }, index) => (
-            <p key={ index }>{`${name}: ${valueName}`}</p>
-          ))}
-          <p>{element[0].warranty}</p>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ this.addCart }
-          >
-            Adicionar ao carrinho
-          </button>
-          <h2>Avaliações</h2>
-          <form className="form-product-details">
+          <h1 className="is-size-5 has-text-weight-bold mt-5" data-testid="product-detail-name">{element[0].title}</h1>
+          <div className="columns m-1 mt-3">
+            <div className="column ">
+              <img className="image-details" src={ element[0].thumbnail } alt="title" />
+            </div>
+            <div
+              className="column is-one-quarter price-details"
+            >
+              <p className="has-text-weight-bold has-text-danger is-size-3">{`R$ ${element[0].price.toFixed(2)}`}</p>
+              <p>Meios de pagamentos:</p>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmPf2WHW1T41_h9UopmSDGvFh7ygnN501bU9EznLFQTeGce3TlSlWtCPUr8ric9jw8_m8&usqp=CAU" alt="card" />
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ this.addCart }
+                className="button is-link is-light"
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+          </div>
+          <div className="is-flex-direction-column product-details-div is-align-items-self-start ">
+            <p className="product-details has-text-weight-bold is-size-5">Detalhes do Produto</p>
+            {element[0].attributes.map(({ name, value_name: valueName }, index) => (
+              <p className="product-details" key={ index }>{`${name}: ${valueName}`}</p>
+            ))}
+            <p className="product-details">{element.warranty}</p>
+          </div>
+
+          <div className="form-product-details">
+            <p className="title">Avaliações</p>
             <div className="input-email-evaluation">
               <input
                 type="email"
                 placeholder="Digite seu email"
                 required
-              />
-              <input
-                type="number"
-                min="0"
-                max="5"
-                placeholder="Nota"
-                required
+                className="input is-primary"
               />
             </div>
+            <Reating />
             <div className="textarea-description-evaluation">
               <textarea
                 maxLength="500"
@@ -124,17 +135,18 @@ class ProductDetails extends React.Component {
                 rows="6"
                 cols="30"
                 data-testid="product-detail-evaluation"
+                className="textarea"
               />
             </div>
             <div>
               <button
                 type="button"
-                onClick={ this.funcToAddEvaluation }
+                className="button is-success"
               >
                 Avaliar
               </button>
             </div>
-          </form>
+          </div>
         </div>
       )
     );
@@ -145,36 +157,46 @@ class ProductDetails extends React.Component {
     return (
       !readyToRender ? <p>Carregando...</p> : (
         <div>
-          <h1 data-testid="product-detail-name">{element.title}</h1>
-          <img src={ element.thumbnail } alt="title" />
-          <p>{`Valor: ${element.price} R$`}</p>
-          {element.attributes.map(({ name, value_name: valueName }, index) => (
-            <p key={ index }>{`${name}: ${valueName}`}</p>
-          ))}
-          <p>{element.warranty}</p>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ this.addCart }
-          >
-            Adicionar ao carrinho
-          </button>
-          <h2>Avaliações</h2>
-          <form className="form-product-details">
+          <h1 className="is-size-5 has-text-weight-bold mt-5" data-testid="product-detail-name">{element.title}</h1>
+          <div className="columns m-1 mt-3">
+            <div className="column ">
+              <img className="image-details" src={ element.thumbnail } alt="title" />
+            </div>
+            <div
+              className="column is-one-quarter price-details"
+            >
+              <p className="has-text-weight-bold has-text-danger is-size-3">{`R$ ${element.price.toFixed(2)}`}</p>
+              <p>Meios de pagamentos:</p>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmPf2WHW1T41_h9UopmSDGvFh7ygnN501bU9EznLFQTeGce3TlSlWtCPUr8ric9jw8_m8&usqp=CAU" alt="card" />
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ this.addCart }
+                className="button is-link is-light"
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+          </div>
+          <div className="is-flex-direction-column product-details-div is-align-items-self-start ">
+            <p className="product-details has-text-weight-bold is-size-5">Detalhes do Produto</p>
+            {element.attributes.map(({ name, value_name: valueName }, index) => (
+              <p className="product-details" key={ index }>{`${name}: ${valueName}`}</p>
+            ))}
+            <p className="product-details">{element.warranty}</p>
+          </div>
+
+          <div className="form-product-details">
+            <p className="title">Avaliações</p>
             <div className="input-email-evaluation">
               <input
                 type="email"
                 placeholder="Digite seu email"
                 required
-              />
-              <input
-                type="number"
-                min="0"
-                max="5"
-                placeholder="Nota"
-                required
+                className="input is-primary"
               />
             </div>
+            <Reating />
             <div className="textarea-description-evaluation">
               <textarea
                 maxLength="500"
@@ -182,17 +204,18 @@ class ProductDetails extends React.Component {
                 rows="6"
                 cols="30"
                 data-testid="product-detail-evaluation"
+                className="textarea"
               />
             </div>
             <div>
               <button
                 type="button"
-                onClick={ this.funcToAddEvaluation }
+                className="button is-success"
               >
                 Avaliar
               </button>
             </div>
-          </form>
+          </div>
         </div>
       )
     );
@@ -203,8 +226,36 @@ class ProductDetails extends React.Component {
     const { length } = this.state;
     return (
       <div>
-        <h1>Product Details Page</h1>
-        <CartButton length={ length } />
+        <header className="hero is-primary main-screen-header">
+          <div
+            className="hero-body
+          container-input
+          is-flex-direction-row
+          is-justify-content-space-around
+          columns
+          is-align-items-start
+           "
+          >
+
+            <div className="column">
+              <img className="imageLogo" src="https://theme.zdassets.com/theme_assets/9633455/9814df697eaf49815d7df109110815ff887b3457.png" alt="" />
+              <p className="subtitle">
+                <strong>Store</strong>
+              </p>
+            </div>
+
+            <div className="column pt-6">
+              <p className="title" data-testid="home-initial-message">
+                Detalhes
+              </p>
+            </div>
+
+            <div className="column pt-6">
+              <CartButton length={ length } />
+            </div>
+          </div>
+
+        </header>
         {Array.isArray(element) ? this.renderByArray(element) : this.renderByObj(element)}
       </div>
     );

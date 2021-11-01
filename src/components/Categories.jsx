@@ -28,25 +28,28 @@ class Categories extends React.Component {
   render() {
     const { categories } = this.state;
     return (
-      <div className="container-categories is-flex ">
+      <div className="container-categories">
+        <p className="subtitle"><strong>Categorias</strong></p>
+
         <ul
-          className=" is-flex-direction-column is-align-content-left"
+          className="categories-list is-align-content-left"
         >
-          <p className="subtitle">Categorias</p>
           {categories.map((cat) => (
             <li
-              className=" is-flex is-align-content-left"
+              className="categories-line is-flex is-align-content-left"
               key={ cat.id }
             >
-              <input
-                type="radio"
-                name="valeuId"
-                onChange={ this.handleChange2 }
-                id={ cat.id }
-                data-testid="category"
-              />
-              &nbsp;
-              {cat.name}
+              <label htmlFor={ cat.id }>
+                <input
+                  type="radio"
+                  name="valeuId"
+                  onChange={ this.handleChange2 }
+                  id={ cat.id }
+                  data-testid="category"
+                />
+                &nbsp;
+                {cat.name}
+              </label>
             </li>
           ))}
         </ul>

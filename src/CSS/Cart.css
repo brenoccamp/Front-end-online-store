@@ -1,0 +1,42 @@
+.cart-container{
+  margin: 50px 200px 0px 200px;
+}
+
+table  {
+  margin-top: 5rem;  
+}
+
+.add-quantity {
+  display: flex; 
+}
+
+.add-quantity p{  
+  margin: 0px 10px 0px 10px;
+}
+
+.table {
+ margin-top: auto; 
+}
+.table p {
+  font-weight: bold;
+}
+
+.image-cart {
+  max-width: 96px;
+  max-height: 96px;
+  border-radius: 50%;  
+}
+
+.title-cart {
+  display: -webkit-box;
+  max-width: 300px;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.total-products p {
+  font-weight: bold;
+  margin-bottom: 2em;
+}

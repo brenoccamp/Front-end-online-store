@@ -1,5 +1,9 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import '../CSS/Cart.css';
 
 class Cart extends React.Component {
   constructor() {
@@ -78,63 +82,188 @@ class Cart extends React.Component {
     this.setState({ cart: CART });
   }
 
+  somaCart = (cart) => {
+    if (cart.length > 0) {
+      return cart.map((elem) => elem[1].priceUnity).reduce((a, b) => a + b);
+    }
+    return 0;
+  }
+
   render() {
+    const trashIcon = <FontAwesomeIcon icon={ faTrashAlt } />;
     const { cart } = this.state;
+    const totalValue = this.somaCart(cart);
+    console.log(totalValue);
+
     if (cart.length > 0) {
       return (
         <div>
-          {cart.map((element) => (
-            <div className="card" key={ element[0].id }>
-              <Link
-                to={ { pathname: `/product-details/${element[0].id}`,
-                  state: { element } } }
-                data-testid="product-detail-link"
-              >
-                <div data-testid="product">
-                  <h1 data-testid="shopping-cart-product-name">{ element[0].title }</h1>
-                  <img src={ element[0].thumbnail } alt={ element[0].title } />
-                  <h3>{`R$: ${element[0].price}`}</h3>
-                </div>
-              </Link>
-              <button
-                id={ element[0].id }
-                type="button"
-                data-testid="product-decrease-quantity"
-                onClick={ this.decreaseValue }
-              >
-                -
-              </button>
-              <p>Quantidade: </p>
-              <p data-testid="shopping-cart-product-quantity">
-                { element[1].QUANTIDADE }
-              </p>
-              <button
-                id={ element[0].id }
-                type="button"
-                data-testid="product-increase-quantity"
-                onClick={ this.increaseValue }
-                disabled={ this.disableButton(element) }
-              >
-                +
-              </button>
-              <button
-                id={ element[0].id }
-                type="button"
-                data-testid=""
-                onClick={ this.removeProduct }
-              >
-                Remover Produto
-              </button>
-            </div>
-          ))}
-          <Link to="/checkout">
-            <button
-              type="button"
-              data-testid="checkout-products"
+          <header className="hero is-primary main-screen-header">
+            <div
+              className="hero-body
+          container-input
+          is-flex-direction-row
+          is-justify-content-space-around
+          columns
+          is-align-items-start
+           "
             >
-              Finalizar Compra
-            </button>
-          </Link>
+
+              <div className="column">
+                <img className="imageLogo" src="https://theme.zdassets.com/theme_assets/9633455/9814df697eaf49815d7df109110815ff887b3457.png" alt="" />
+                <p className="subtitle">
+                  <strong>Store</strong>
+                </p>
+              </div>
+
+              <div className="column pt-6">
+                <p className="title" data-testid="home-initial-message">
+                  Cart
+                </p>
+              </div>
+
+              <div className="column pt-6">
+                <Link to="/">
+                  <button
+                    type="button"
+                    className=" button is-link is-light shopping-cart-button float-right"
+                  >
+                    Voltar a home
+
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+          </header>
+          <main className="cart-container">
+            <p className="title">Meu Carrinho</p>
+            <div className="columns">
+              <div className="column">
+
+                <table className="table card">
+                  <thead>
+                    <tr>
+                      <th>
+                        Item
+                      </th>
+
+                      <th>
+                  &nbsp;
+                      </th>
+
+                      <th>
+                        Valor
+                      </th>
+
+                      <th>
+                        Quantidade
+                      </th>
+
+                      <th>
+                        Total
+                      </th>
+
+                      <th>
+              &nbsp;
+                      </th>
+                    </tr>
+
+                  </thead>
+
+                  <tbody>
+                    {cart.map((element) => (
+                      <tr key={ element[0].id }>
+                        {/* Table Cart */}
+
+                        <td>
+                          <div className="">
+                            <img className="image-cart" src={ element[0].thumbnail } alt={ element[0].title } />
+                          </div>
+                        </td>
+
+                        <td>
+                          <Link
+                            className="link-card"
+                            to={ { pathname: `/product-details/${element[0].id}`,
+                              state: { element } } }
+                            data-testid="product-detail-link"
+                          >
+                            <p data-testid="shopping-cart-product-name" className="title-cart">{ element[0].title }</p>
+                          </Link>
+                        </td>
+
+                        <td>
+                          <p>{`R$ ${element[0].price.toFixed(2)}`}</p>
+                        </td>
+
+                        <td>
+                          <div className="add-quantity">
+                            <button
+                              className="button"
+                              id={ element[0].id }
+                              type="button"
+                              data-testid="product-decrease-quantity"
+                              onClick={ this.decreaseValue }
+                            >
+                              -
+                            </button>
+
+                            <p className="quantity" data-testid="shopping-cart-product-quantity">
+                              { element[1].QUANTIDADE }
+                            </p>
+
+                            <button
+                              className="button"
+                              id={ element[0].id }
+                              type="button"
+                              data-testid="product-increase-quantity"
+                              onClick={ this.increaseValue }
+                              disabled={ this.disableButton(element) }
+                            >
+                              +
+                            </button>
+                          </div>
+                        </td>
+                        <td>
+                          <p className="is-size-4">{`R$ ${element[1].priceUnity.toFixed(2)}`}</p>
+                        </td>
+                        <td>
+                          <button
+                            className="button is-danger"
+                            id={ element[0].id }
+                            type="button"
+                            data-testid=""
+                            onClick={ this.removeProduct }
+                          >
+                            {trashIcon}
+                          </button>
+
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="column is-2 total-products ">
+                <p><strong>Resumo do Pedido</strong></p>
+                <p>{`${cart.length} Produto(s)`}</p>
+                <h1>Valor Total</h1>
+                <p className="valueCart is-size-3 has-text-info">{`R$ ${totalValue.toFixed(2)}`}</p>
+
+                <Link to="/checkout">
+                  <button
+                    className="button is-success"
+                    type="button"
+                    data-testid="checkout-products"
+                  >
+                    Finalizar Compra
+                  </button>
+                </Link>
+              </div>
+
+            </div>
+          </main>
         </div>
       );
     }
