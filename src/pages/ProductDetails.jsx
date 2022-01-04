@@ -233,8 +233,7 @@ class ProductDetails extends React.Component {
           is-flex-direction-row
           is-justify-content-space-around
           columns
-          is-align-items-start
-           "
+          is-align-items-start"
           >
 
             <div className="column">
